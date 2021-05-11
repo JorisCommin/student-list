@@ -13,7 +13,7 @@ pipeline {
              steps {
                 script {
                  sh 'cd simple_api && docker build -t $IMAGE_NAME:$IMAGE_TAG .'
-                 # sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./simple_api/Dockerfile . '
+                 //sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./simple_api/Dockerfile . '
                 }
              }
         }
