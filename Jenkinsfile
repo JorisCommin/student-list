@@ -12,9 +12,8 @@ pipeline {
              agent any
              steps {
                 script {
-                  #sh 'cd simple_api && docker build -t $IMAGE_NAME:$IMAGE_TAG .'
-                  sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./simple_api/Dockerfile . '
-                  
+                 sh 'cd simple_api && docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                 # sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG -f ./simple_api/Dockerfile . '
                 }
              }
         }
@@ -23,6 +22,7 @@ pipeline {
             steps {
                script {
                  sh '''
+                    docker rm -f $IMAGE_NAME
                     docker run --name $IMAGE_NAME -d -p 80:5000 $IMAGE_REPO/$IMAGE_NAME:$IMAGE_TAG
                     sleep 5
                  '''
@@ -34,7 +34,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                    curl http://172.17.0.1:50 | grep -q "student"
+                    curl http://172.17.0.1:80 | grep -q "error"
                 '''
               }
            }
